@@ -1,0 +1,23 @@
+# synth_mini_cpu.ys
+
+# 1. Đọc RTL
+read_verilog acc_reg.v          mini_alu.v      mini_regfile.v mini_cpu_top.v  pc_unit.v control_unit.v     mini_dmem.v debug_dout_unit.v  mini_imem.v
+
+# 2. Chọn top module mới
+hierarchy -top mini_cpu_top
+
+# 3. Xử lý high-level construct
+proc; memory; opt; fsm; opt
+
+# 4. Synthesis generic
+synth -top mini_cpu_top
+
+# 5. Map tới cell Sky130
+dfflibmap -liberty ../openlane/pdks/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc        -liberty ../openlane/pdks/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+opt_clean
+
+# 6. Xuất netlist với tên mới
+write_verilog -noattr top_mini_cpu_synth.v
+write_json top_mini_cpu.json
