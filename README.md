@@ -1,6 +1,6 @@
 
 
-# Mini CPU: Comprehensive Design Flow – RTL Design, Functional Verification, and Physical Implementation #
+# Mini CPU: RTL Design, Design Verification, and Physical Implementation – A Complete ASIC Flow from Verilog to GDSII #
 
 ## 1. System Overview
 
